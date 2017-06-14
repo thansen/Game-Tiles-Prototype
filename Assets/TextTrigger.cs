@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class TextTrigger : MonoBehaviour {
 	public string triggerString;
-	public Text textUI;
+	public float visibilityDuration;
+	private Text textUI;
+	private GameObject textObject;
 
 	// Use this for initialization
 	void Start () {
-		
+		textObject = GameObject.Find("TextBox");
+		textUI = textObject.GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
@@ -20,7 +23,11 @@ public class TextTrigger : MonoBehaviour {
 	void OnTriggerEnter(Collider col) {
     if (col.name == "Player") {
     		
-    		textUI.Text(triggerString);
+    		textUI.text = triggerString;
+
+    		Animation fadeAnimation = textObject.GetComponent<Animation>();
+    		fadeAnimation.Stop();
+ 			fadeAnimation.Play("simpleFade");
     	}   
     }
 
